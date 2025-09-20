@@ -1,0 +1,30 @@
+version: 2
+
+models:
+  - name: int_monthly_client_contracts
+    description: "Individual client contracts on monthly threshold discounts on margins, break down into individual months"
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - contract_month
+            - client_id
+    columns:
+      - name: contract_month
+        description: "Month that the contract applies"
+        tests:
+          - not_null
+
+      - name: client_id
+        description: "Unique identifier for the client."
+        tests:
+          - not_null
+
+      - name: spend_threshold
+        description: "Spend threshold in GBP for discount eligibility per month within the contract."
+        tests:
+          - not_null
+    
+      - name: discounted_fee_margin
+        description: "discounted margin if spend_threshold amount were met"
+        tests:
+          - not_null

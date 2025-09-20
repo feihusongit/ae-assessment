@@ -1,0 +1,36 @@
+version: 2
+
+models:
+  - name: stg_client_contracts
+    description: "Individual client contracts on monthly threshold discounts on margins"
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - client_id
+            - contract_start_date
+    columns:
+      - name: client_id
+        description: "Unique identifier for the client."
+        tests:
+          - not_null
+
+      - name: contract_start_date
+        description: "Start date of the contract (inclusive)."
+        tests:
+          - not_null
+
+      - name: contract_duration_months
+        description: "Length of the contract in whole months."
+        tests:
+          - not_null        
+
+      - name: spend_threshold
+        description: "Spend threshold in GBP for discount eligibility per month within the contract."
+          - dbt_utils.expression_is_true:
+              expression: "spend_threshold > 0"
+    
+      - name: discounted_fee_margin
+        description: "Discounted fee margin applied when threshold is met."
+
+      - name: contract_end_date
+        description: "Computed end date of the contract (inclusive): start + N months - 1 day."

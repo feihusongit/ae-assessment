@@ -1,0 +1,107 @@
+version: 2
+
+models:
+  - name: int_inbound_transactions
+    description: "Enriched inbound transactions joined with monthly contract thresholds."
+
+    columns:
+      - name: client_id
+        description: "Client identifier."
+        tests:
+          - not_null
+
+      - name: transaction_id
+        description: "Original (non-refund) transaction id; unique per row."
+        tests:
+          - not_null
+          - unique
+
+      - name: transaction_date
+        description: "Calendar date of the original transaction."
+        tests:
+          - not_null
+
+      - name: transaction_month
+        description: "Start-of-month bucket for the transaction timestamp."
+        tests:
+          - not_null
+
+      - name: currency
+        description: "Currency code of the transaction initiated"
+        tests:
+          - not_null
+
+      - name: exchange_rate_to_gbp
+        description: "FX rate used to convert from currency to GBP on transaction_date."
+
+      - name: transaction_type
+        description: "Type of the transaction. payment/chargeback/fraud"
+
+      - name: transaction_amount_ccy
+        description: "Original transaction amount in its local currency."
+        tests:
+          - not_null
+
+      - name: transaction_amount_gbp
+        description: "Original transaction amount converted to GBP."
+        tests:
+          - not_null
+
+      - name: is_refunded
+        description: "Whether the original transaction has refund."
+        tests:
+          - accepted_values:
+              values: [true, false]
+
+      - name: refunded_date
+        description: "Date of the latest refund applied to the original transaction (if any)."
+
+      - name: refund_currency
+        description: "Currency of the latest refund (if any)."
+
+      - name: refund_amount_local_ccy
+        description: "Latest refund amount in refund currency (if any)."
+
+      - name: refund_amount_gbp
+        description: "Latest refund amount converted to GBP (if any)."
+
+      - name: chargeback_resolution_status
+        description: "Chargeback resolution status if applicable. resolved/pending"
+
+      - name: chargeback_resolution_date
+        description: "Date of chargeback resolution if applicable."
+
+      - name: final_transacted_amount_ccy
+        description: "Post-adjustment local-currency amount after refund/chargeback/fraud rules."
+        tests:
+          - not_null
+
+      - name: final_transacted_amount_gbp
+        description: "Post-adjustment amount converted to GBP."
+        tests:
+          - not_null
+
+      - name: monthly_final_transacted_amount_gbp
+        description: "On client level, sum of final_transacted_amount_gbp over given month."
+        tests:
+          - not_null
+
+      - name: contracted_monthly_spend_threshold
+        description: "Contracted monthly GBP spend threshold for the client-month (if any)."
+
+      - name: original_monthly_platform_fee_margin
+        description: "Platform fee margin from the original transaction."
+        tests:
+          - not_null
+
+      - name: monthly_spend_threshold_reached
+        description: "True if monthly_final_transacted_amount_gbp meets/exceeds the contracted_monthly_spend_threshold."
+        tests:
+          - accepted_values:
+              values: [true, false]
+
+      - name: actual_monthly_platform_fee_margin
+        description: "Applied monthly platform fee margin after threshold evaluation. Use contracted_monthly_spend_threshold if monthly_spend_threshold_reached "
+        tests:
+          - not_null
+
