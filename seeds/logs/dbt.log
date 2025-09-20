@@ -1,0 +1,11 @@
+[0m15:29:11.129762 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x107f39340>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x111a83520>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x111a83ee0>]}
+
+
+============================== 15:29:11.132229 | b91b4def-b72c-451f-9489-6d4694eee39c ==============================
+[0m15:29:11.132229 [info ] [MainThread]: Running with dbt=1.5.11
+[0m15:29:11.132557 [debug] [MainThread]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'log_cache_events': 'False', 'write_json': 'True', 'partial_parse': 'True', 'cache_selected_only': 'False', 'profiles_dir': '/Users/lanre/.dbt', 'debug': 'False', 'fail_fast': 'False', 'log_path': '/Users/lanre/Documents/GitHub/ae-technical-assessment/seeds/logs', 'version_check': 'True', 'warn_error': 'None', 'use_colors': 'True', 'use_experimental_parser': 'False', 'no_print': 'None', 'quiet': 'False', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'static_parser': 'True', 'introspect': 'True', 'log_format': 'default', 'target_path': 'None', 'send_anonymous_usage_stats': 'True'}
+[0m15:29:11.149598 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'project_id', 'label': 'b91b4def-b72c-451f-9489-6d4694eee39c', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x111a83070>]}
+[0m15:29:11.150086 [info ] [MainThread]: Warning: No packages were found in packages.yml
+[0m15:29:11.150438 [debug] [MainThread]: Command `cli deps` succeeded at 15:29:11.150373 after 0.05 seconds
+[0m15:29:11.150595 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x107f39340>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x111afd1f0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x111b10760>]}
+[0m15:29:11.150751 [debug] [MainThread]: Flushing usage events
