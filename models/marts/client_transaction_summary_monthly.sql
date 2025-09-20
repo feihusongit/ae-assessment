@@ -44,7 +44,7 @@ with inbound_transactions as (
             revenue_gbp_pre_discount,
             revenue_gbp_post_discount,
             discount_applided_gbp,
-            monthly_final_transacted_amount_gbp as monthly_gmv_gbp,
+            monthly_final_transacted_amount_gbp as monthly_gmv_gbp
         from inbound_transactions
 
     )
