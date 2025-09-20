@@ -19,7 +19,7 @@ clean-targets:
 models:
   global_transactions:
     staging:
-      +materialized: view
+      +materialized: table
       +schema: staging
     intermediate:
       +materialized: table
