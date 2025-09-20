@@ -1,23 +1,19 @@
 with source as (
+    select * from {{ ref('transactions') }}
+),
 
-        select * from {{ ref('seed_transactions') }}
-    
-    ),
+src_transactions as (
+    select
+        transaction_id,
+        client_id,
+        transaction_amount,
+        transaction_type,
+        date(transaction_date) as transaction_date,
+        platform_fee_margin,
+        currency,
+        linked_transaction_id,
+        
+    from source
+)
 
-    final as (
-
-        select
-            transaction_id,
-            client_id,
-            transaction_amount,
-            transaction_type,
-            platform_fee_margin,
-            currency,
-            linked_transaction_id,
-            date(transaction_date) as transaction_date,
-            datetime(transaction_date, 'start of month') as transaction_month
-        from source
-
-    )
-
-select * from final
+select * from src_transactions
